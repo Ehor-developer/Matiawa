@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>まちあわ!!| 自分の居場所をリンクで共有できるサイト。</title>
+    <meta name="description" content="ディスクリプション" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="タイトル" />
+    <meta property="og:image" content="/img/icon.png" />
+    <meta property="og:url" content="http://example.net/" />
+    <meta property="og:site_name" content="サイト名" />
+    <meta property="og:description" content="ディスクリプション" />
+    <meta name="robots" content="noarchive">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+
+<body>
+    <section class="hero is-danger">
+        <div class="hero-body">
+            <p class="title">
+                まちあわ!!【探す】
+            </p>
+            <p class="subtitle">
+                自分の居場所をリンクで共有できるサイト。
+            </p>
+        </div>
+    </section>
+    <div class="notification">
+        このサイトでは、<b>”個人情報の収集”</b>などの<b>「プライバシーに欠ける行為」</b>を一切行っておりません。<br>
+        これらの処理はサーバーで管理しておらず、<br>
+        Javascriptを使用した、<b>「端末側での処理」</b>を行っています。
+        万が一、このアプリを使用して、<b>弊害が起きた場合、一切責任を取りません。ご了承下さい。</b>
+    </div>
+    <div class="box">
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered">
+                <div>
+                    <p class="heading">緯度</p>
+                    <p class="title" id="lat">取得中....</p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered">
+                <div>
+                    <p class="heading">経度</p>
+                    <p class="title" id="lng">取得中...</p>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="box">
+        <button class="button"><a id="map" href="" target="_blank">GoogleMapで確認する!!</a></button>
+        <a href="index.html"><button class="button is-primary">リンクを作ってみる!!</button></a>
+    </div>
+</body>
+
+</html>
+
+<script>
+    function getParam(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+    document.getElementById("lat").innerHTML = getParam('ido');
+    document.getElementById("lng").innerHTML = getParam('keido');
+    let map = document.getElementById("map");
+    map.setAttribute("href", "https://www.google.co.jp/maps/@" + getParam('ido') + "," + getParam('keido') + ",19z");
+</script>
+<style>
+    #display {
+        display: none;
+    }
+
+    .center {
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    html {
+        padding: 10pt;
+    }
+
+    b {
+        color: rgb(218, 52, 52);
+        background-color: rgb(255, 230, 162);
+        padding-left: 4pt;
+        padding-right: 4pt;
+    }
+
+    .box button {
+        margin: 5pt;
+    }
+</style>
