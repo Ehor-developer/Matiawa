@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>まちあわ!!| 自分の居場所をリンクで共有できるサイト。</title>
-    <meta name="description" content="ディスクリプション" />
+    <meta name="description" content="自分の居場所をリンクで共有できるサイト。Javascriptのみで実行されているため、
+    こちら側からは情報を見ることはできません。必要なときだけ、友達に送れば住所がばれることがありません。" />
+
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Ehor｜Github" />
     <meta property="og:site_name" content="まちあわ!!" />
@@ -17,10 +19,11 @@
 </head>
 
 <body>
+
     <section class="hero is-primary">
         <div class="hero-body">
             <p class="title">
-                まちあわ!!【リンクを作る】
+                まちあわ!!<br>【リンクを作る】
             </p>
             <p class="subtitle">
                 自分の居場所をリンクで共有できるサイト。
@@ -50,21 +53,52 @@
         </nav>
     </div>
     <div class="box">
-        <input class="input is-primary" id="link" type="text" placeholder="位置情報が正しく取得できると、ここに共有リンクが表示されます。">
+        <input class="input is-primary" id="link" type="text" placeholder="位置情報を取得すると、ここに共有リンクが表示されます。">
         <div id="display">
-            <button class="button is-primary onclick" onclick="copy()">リンクをコピー</button>
+            <button class="button is-primary onclick" onclick="copyToClipboard()">リンクをコピー</button>
             <button class="button"><a id="map" href="" target="_blank">GoogleMapで確認する!!</a></button>
 
         </div>
+    </div>
+    <div class="modal is-info" id="modal-window">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="box">
+                <h1 class="title is-3">始める前に・・・確認ね？</h1>
+                <h2>あなたは<b>心から信頼できる人</b>に、位置情報を共有しようとしてますか？</h2>
+                <h2>ネットにはいい人もいますが、良くない人もいます。
+                    <br>「あなたが巻き込まれて欲しくはない！」と開発者は心から願っています。
+                    <h3>もし、相手から指示されているのであれば、一度立ち止まってください。</h3>
+                    <h3><b>勇気を出して断りましょう。</b></h3>
+                    <h3>このアプリは<b>信頼できる友達と待ち合わせの際に使用するもの</b>です。</h3>
+            </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close" id="close-modal"></button>
     </div>
 </body>
 
 </html>
 
 <script>
-    let ido = document.getElementById("ido");
-    let keido = document.getElementById("keido");
-    let map = document.getElementById("map");
+    document.addEventListener('DOMContentLoaded', () => {
+
+    });
+    window.onload = function () {
+        const $modal = document.getElementById('modal-window');
+        $modal.classList.add('is-active');  // is-activeクラスを追加
+    }
+
+    // モーダルウィンドウを閉じるボタンを取得します。
+    const $close = document.getElementById('close-modal');
+    // ボタンのクリックイベントを追加します。
+    $close.addEventListener('click', () => {
+        // モーダルウィンドウを閉じます。
+        const $modal = document.getElementById('modal-window');
+        $modal.classList.remove('is-active');  // is-activeクラスを削除
+    });
+    let ido = document.getElementById('ido');
+    let keido = document.getElementById('keido');
+    let map = document.getElementById('map');
     navigator.geolocation.getCurrentPosition((position) => {
         let coords = position.coords;
         ido.textContent = coords.latitude;
@@ -75,9 +109,9 @@
         document.getElementById("display").style.display = "block";
 
     });
-    function copy() {
-        var input_copy = document.getElementById("link");
-        input_copy.select();
+    function copyToClipboard() {
+        var copyTarget = document.getElementById("link");
+        copyTarget.select();
         document.execCommand("Copy");
     }
 </script>

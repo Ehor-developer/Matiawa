@@ -19,10 +19,11 @@
 </head>
 
 <body>
+
     <section class="hero is-danger">
         <div class="hero-body">
             <p class="title">
-                まちあわ!!【探す】
+                まちあわ!!<br>【探す】
             </p>
             <p class="subtitle">
                 自分の居場所をリンクで共有できるサイト。
@@ -35,6 +36,10 @@
         Javascriptを使用した、<b>「端末側での処理」</b>を行っています。
         万が一、このアプリを使用して、<b>弊害が起きた場合、一切責任を取りません。ご了承下さい。</b>
     </div>
+    <center>
+        <h1 class="title is-1">相手の場所は？</h1>
+        <h1 class="title is-4">位置情報はこちらです!</h1>
+    </center>
     <div class="box">
         <nav class="level is-mobile">
             <div class="level-item has-text-centered">
@@ -60,6 +65,7 @@
 </html>
 
 <script>
+    
     function getParam(name, url) {
         if (!url) url = window.location.href;
         name = name.replace(/[\[\]]/g, "\\$&");
