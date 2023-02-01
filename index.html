@@ -65,11 +65,14 @@
 </html>
 
 <script>
+    let lat = document.getElementById("ido");
+    let lng = document.getElementById("keido");
+    let map = document.getElementById("map");
     navigator.geolocation.getCurrentPosition((position) => {
         let coords = position.coords;
-        document.getElementById("ido").innerHTML = coords.latitude;
-        document.getElementById("keido").innerHTML = coords.longitude;
-        document.getElementById("map").setAttribute("href", "https://www.google.co.jp/maps/@" + coords.latitude + "," + coords.longitude + ",19z");
+        ido.textContent = coords.latitude;
+        keido.textContent = coords.longitude;
+        map.setAttribute("href", "https://www.google.co.jp/maps/@" + coords.latitude + "," + coords.longitude + ",19z");
         var url = location.protocol + "//" + location.host + "/main.html" + "?ido=" + coords.latitude + "&keido=" + coords.longitude;
         document.getElementById("link").value = url;
         document.getElementsById("display").style.display = "block";
