@@ -102,8 +102,8 @@
     let map = document.getElementById('map');
     navigator.geolocation.getCurrentPosition((position) => {
         let coords = position.coords;
-        ido.textContent = Math.round(coords.latitude　* 100) / 100;
-        keido.textContent = Math.round(coords.longitudeMath　* 100) / 100;
+        ido.textContent = Math.round(coords.latitude　* 1000) / 1000;
+        keido.textContent = Math.round(coords.longitude　* 1000) / 1000;
         map.setAttribute("href", "https://www.google.co.jp/maps/@" + coords.latitude + "," + coords.longitude + ",19z");
         var url = location.protocol + "//" + location.host + "/Matiawa/main.html" + "?ido=" + coords.latitude + "&keido=" + coords.longitude;
         document.getElementById("link").value = url;
