@@ -36,4 +36,5 @@ InstagramのDMやLINE、Discordなどに「信頼している友達」にのみ�
 以下のソースを参考に開発致しました。感謝申し上げます。
 
 ■【JavaScript】現在の位置情報を取得する【Geolocation API】
+
 https://into-the-program.com/javascript-get-location/
