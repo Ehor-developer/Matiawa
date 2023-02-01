@@ -55,4 +55,5 @@ InstagramのDMやLINE、Discordなどに「信頼している友達」にのみ�
 https://into-the-program.com/javascript-get-location/
 
 ■Javascript でURLのパラメータを取得する方法
+
 https://www-creators.com/archives/4463
