@@ -2,24 +2,31 @@
 <html>
 
 <head>
+    <!--HTML初期設定-->
     <meta charset="UTF-8">
+    <!--ViewPort設定-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>まちあわ!!| 自分の居場所をリンクで共有できるサイト。</title>
-    <meta name="twitter:card" content="summary_large_image"/>
+    <!--ページタイトル設定-->
+    <title>まちあわ!!| 相手の位置情報</title>
+    <!--SEO対策・OGP設定-->
     <meta name="description" content="自分の居場所をリンクで共有できるサイト。Javascriptのみで実行されているため、
     こちら側からは情報を見ることはできません。必要なときだけ、友達に送れば住所がばれることがありません。" />
-    <meta name="twitter:card" content="summary_large_image">
-    <meta property="og:image" content="https://ehor-developer.github.io/Matiawa/img/basyo.png">
+    <meta name="og:image" content="https://ehor-developer.github.io/Matiawa/img/basyo.png">
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="まちあわ!!～自分の居場所をリンクで共有できるサイト～" />
+    <meta property="og:site_name" content="Ehor.work｜便利なアプリ" />
+    <meta property="og:description" content="自分の居場所をリンクで共有できるアプリ。
+    待ち合わせのときに便利なアプリ。最近は、様々な位置情報アプリがありまずが、
+    常に位置情報を共有するわけではなく、必要なときにだけ共有することができます。
+    また、データをサーバーに保存しないで、リンクに情報をつけることにより、安心してご利用できます。
+    位置を知らせたい相手に、生成されたリンクを送るだけ。とっても簡単な使い方になっています!!" />
+    <meta name="robots" content="noarchive">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://ehor-developer.github.io/Matiawa/img/basyo.png" />
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="600">
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="【まちあわ!!】相手の情報を見るにはここをクリックしてください。" />
-    <meta property="og:site_name" content="Ehor｜Github" />
-    <meta property="og:description" content="自分の居場所をリンクで共有できるサイト。Javascriptのみで実行されているため、
-    こちら側からは情報を見ることはできません。必要なときだけ、友達に送れば住所がばれることがありません。" />
+    <!--CSSフレームワーク読み込み-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <meta name=”twitter:image" content="https://ehor-developer.github.io/Matiawa/img/basyo.png/">
 </head>
 
 <body>
@@ -35,42 +42,42 @@
         </div>
     </section>
     <div class="notification">
-        このサイトでは、<b>”個人情報の収集”</b>などの<b>「プライバシーに欠ける行為」</b>を一切行っておりません。<br>
-        これらの処理はサーバーで管理しておらず、<br>
-        Javascriptを使用した、<b>「端末側での処理」</b>を行っています。
-        万が一、このアプリを使用して、<b>弊害が起きた場合、一切責任を取りません。ご了承下さい。</b>
+        万が一、このアプリを使用して、<b>弊害が起きた場合、開発者は一切責任を取りません。ご了承下さい。</b>
     </div>
     <center>
-        <h1 class="title is-1">相手の場所は？</h1>
-        <h1 class="title is-4">位置情報はこちらです!</h1>
+        <p class="title is-1">相手の場所は？</p>
+        <p class="title is-4">位置情報はこちらです!</p>
+        <p class="title is-6">四捨五入して、緯度/経度を表示しています</p>
     </center>
     <div class="box">
         <nav class="level is-mobile">
             <div class="level-item has-text-centered">
                 <div>
                     <p class="heading">緯度</p>
-                    <p class="title" id="lat">取得中....</p>
+                    <p class="title" id="ido">取得中....</p>
                 </div>
             </div>
             <div class="level-item has-text-centered">
                 <div>
                     <p class="heading">経度</p>
-                    <p class="title" id="lng">取得中...</p>
+                    <p class="title" id="keido">取得中...</p>
                 </div>
             </div>
         </nav>
     </div>
     <div class="box">
-        <button class="button"><a id="map" href="" target="_blank">GoogleMapで確認する!!</a></button>
-        <a href="index.html"><button class="button is-primary">リンクを作ってみる!!</button></a>
+        <p class="title is-6">Googleマップで表示すると、<br>おおよその位置がズームされて表示されます。</p>
+        <a id="map" href="" target="_blank"><button class="button is-primary"
+                style="width: 20em; height: 4em">GoogleMapでズーム表示する!</button></a>
+        <a href="index.html"><button class="button is-primary">自分もリンクを作ってみる!!</button></a>
     </div>
 </body>
 
 </html>
 
 <script>
-
-    function getParam(name, url) {
+//パラメータを取得する処理
+    function parm(name, url) {
         if (!url) url = window.location.href;
         name = name.replace(/[\[\]]/g, "\\$&");
         var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
@@ -79,10 +86,10 @@
         if (!results[2]) return '';
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
-    document.getElementById("lat").innerHTML = Math.round(getParam('ido') * 1000) / 1000;
-    document.getElementById("lng").innerHTML = Math.round(getParam('keido') * 1000) / 1000;
-    let map = document.getElementById("map");
-    map.setAttribute("href", "https://www.google.co.jp/maps/@" + getParam('ido') + "," + getParam('keido') + ",19z");
+//四捨五入して、緯度と経度を表示
+    document.getElementById("ido").innerHTML = Math.round(parm('ido') * 1000) / 1000;
+    document.getElementById("keido").innerHTML = Math.round(parm('keido') * 1000) / 1000;
+    document.getElementById("map").setAttribute("href", "https://www.google.co.jp/maps/@" + parm('ido') + "," + parm('keido') + ",19z");
 </script>
 <style>
     #display {
