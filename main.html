@@ -74,8 +74,8 @@
         if (!results[2]) return '';
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
-    document.getElementById("lat").innerHTML = getParam('ido');
-    document.getElementById("lng").innerHTML = getParam('keido');
+    document.getElementById("lat").innerHTML = Math.round(getParam('ido')　* 1000) / 1000;
+    document.getElementById("lng").innerHTML = Math.round(getParam('keido')　* 1000) / 1000;
     let map = document.getElementById("map");
     map.setAttribute("href", "https://www.google.co.jp/maps/@" + getParam('ido') + "," + getParam('keido') + ",19z");
 </script>
