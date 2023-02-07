@@ -2,118 +2,139 @@
 <html>
 
 <head>
-    <meta charset='UTF-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-
+    <!--HTML初期設定-->
+    <meta charset="UTF-8">
+    <!--ViewPort設定-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--ページタイトル設定-->
     <title>まちあわ!!| 自分の居場所をリンクで共有できるサイト。</title>
-    <meta name='description' content='自分の居場所をリンクで共有できるサイト。Javascriptのみで実行されているため、
-    こちら側からは情報を見ることはできません。必要なときだけ、友達に送れば住所がばれることがありません。' />
-
-    <meta property='og:type' content='website' />
-    <meta property='og:title' content='Ehor｜Github' />
-    <meta property='og:site_name' content='まちあわ!!' />
-    <meta property='og:description' content='自分の居場所をリンクで共有できるサイト。Javascriptのみで実行されているため、
-    こちら側からは情報を見ることはできません。必要なときだけ、友達に送れば住所がばれることがありません。' />
-    <meta name='robots' content='noarchive'>
-    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css'>
+    <!--SEO対策・OGP設定-->
+    <meta name="description" content="自分の居場所をリンクで共有できるサイト。Javascriptのみで実行されているため、
+    こちら側からは情報を見ることはできません。必要なときだけ、友達に送れば住所がばれることがありません。" />
+    <meta name="og:image" content="https://ehor-developer.github.io/Matiawa/img/Matiawa.png">
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="まちあわ!!～自分の居場所をリンクで共有できるサイト～" />
+    <meta property="og:site_name" content="Ehor.work｜便利なアプリ" />
+    <meta property="og:description" content="自分の居場所をリンクで共有できるアプリ。
+    待ち合わせのときに便利なアプリ。最近は、様々な位置情報アプリがありまずが、
+    常に位置情報を共有するわけではなく、必要なときにだけ共有することができます。
+    また、データをサーバーに保存しないで、リンクに情報をつけることにより、安心してご利用できます。
+    位置を知らせたい相手に、生成されたリンクを送るだけ。とっても簡単な使い方になっています!!" />
+    <meta name="robots" content="noarchive">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://ehor-developer.github.io/Matiawa/img/Matiawa.png" />
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="600">
+    <!--CSSフレームワーク読み込み-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 
 <body>
-
-    <section class='hero is-primary'>
-        <div class='hero-body'>
-            <p class='title'>
+    <!--以下ページ内容-->
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <p class="title">
                 まちあわ!!<br>【リンクを作る】
             </p>
-            <p class='subtitle'>
+            <p class="subtitle">
                 自分の居場所をリンクで共有できるサイト。
             </p>
         </div>
     </section>
-    <div class='notification'>
-        このサイトでは、<b>”個人情報の収集”</b>などの<b>「プライバシーに欠ける行為」</b>を一切行っておりません。<br>
-        これらの処理はサーバーで管理しておらず、<br>
-        Javascriptを使用した、<b>「端末側での処理」</b>を行っています。
-        万が一、このアプリを使用して、<b>弊害が起きた場合、一切責任を取りません。ご了承下さい。</b>
-    </div>
-    <div class='box'>
-        <nav class='level is-mobile'>
-            <div class='level-item has-text-centered'>
+
+    <div class="box">
+        <center>
+            <p class="title is-4">自分の場所は？</p>
+            <p class="title is-6">四捨五入して、緯度/経度を表示しています</p>
+        </center>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered">
                 <div>
-                    <p class='heading'>緯度</p>
-                    <p class='title' id='ido'>取得中....</p>
+                    <p class="heading">緯度</p>
+                    <p class="title" id="ido">取得中....</p>
                 </div>
-            </div>
-            <div class='level-item has-text-centered'>
+            </div><br>
+            <div class="level-item has-text-centered">
                 <div>
-                    <p class='heading'>経度</p>
-                    <p class='title' id='keido'>取得中...</p>
+                    <p class="heading">経度</p>
+                    <p class="title" id="keido">取得中...</p>
                 </div>
             </div>
         </nav>
     </div>
-    <h1 class='title is-4'> このリンクを友達に送ると、相手に位置を知らせることができるよ!!</h1>
-    <div class='box'>
-        <input class='input is-primary' id='link' type='text' placeholder='位置情報を取得すると、ここに共有リンクが表示されます。'>
-        <div id='display'>
-            <button class='button is-primary onclick' onclick='copyToClipboard()'>リンクをコピー</button>
-            <button class='button'><a id='map' href='' target='_blank'>GoogleMapで確認する!!</a></button>
+    <div class="box">
+        <p class="title is-5"> 下のリンクを友達に送ろう!!</p><br>
+        <p class="title is-6">すると....</p>
+        <p class="title is-4"><b>あなたのいる場所が<br>拡大されて相手に表示されます!!</b></p>
+    </div>
+    <div class="box">
+        <input class="input is-primary" id="link" type="text" placeholder="位置情報を取得すると、ここに共有リンクが表示されます。">
+        <div id="display">
+            <button class="button is-primary onclick" onclick="copy()">リンクをコピー</button>
+            <a id="map" href="" target="_blank"><button class="button is-primary"
+                    style="width: 20em; height: 4em">GoogleMapで見る</button></a>
 
         </div>
     </div>
-    <div class='modal is-info' id='modal-window'>
-        <div class='modal-background'></div>
-        <div class='modal-content'>
-            <div class='box'>
-                <h1 class='title is-3'>始める前に・・・確認ね？</h1>
+    <div class="modal is-info" id="kakunin">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="box">
+                <p class="title is-3">ちょっとまって....?!</p>
                 <h2>あなたは<b>心から信頼できる人</b>に、位置情報を共有しようとしてますか？</h2>
                 <h2>ネットにはいい人もいますが、良くない人もいます。
                     <br>「あなたが巻き込まれて欲しくはない！」と開発者は心から願っています。
                     <h3>もし、相手から指示されているのであれば、一度立ち止まってください。</h3>
                     <h3><b>勇気を出して断りましょう。</b></h3>
-                    <h3>このアプリは<b>信頼できる友達と待ち合わせの際に使用するもの</b>です。</h3>
+                    <h3>このアプリは<b>信頼できる友達と待ち合わせの際に使用するもの</b>です。</h3><br>
+                    <h3 class="title is-5">※なお、このアプリを使用するには<br>お使いブラウザに<b>位置情報権限</b>を付与する必要があります。
+                        <h3 class="title is-5"><b>※このアプリを使用していかなる問題が起きても製作者は一切責任を負わないこととします。ご了承下さい。
+                            </b>
+                        </h3>
+                        <p>※また、このアプリはサーバーを使用しないため、端末で処理することができる「Javascript」が必要です。</p>
             </div>
         </div>
-        <button class='modal-close is-large' aria-label='close' id='close-modal'></button>
+        <button class="modal-close is-large" aria-label="close" id="close-modal"></button>
     </div>
 </body>
 
 </html>
 
 <script>
+    //このアプリを使用する際の、確認モーダルウィンドウ
     document.addEventListener('DOMContentLoaded', () => {
 
     });
+    //ページを開いたときに表示される処理
     window.onload = function () {
-        const $modal = document.getElementById('modal-window');
-        $modal.classList.add('is-active');  // is-activeクラスを追加
+        const $modal = document.getElementById('kakunin');
+        $modal.classList.add('is-active');
     }
-
-    // モーダルウィンドウを閉じるボタンを取得します。
+    //モーダルを閉じる処理
     const $close = document.getElementById('close-modal');
-    // ボタンのクリックイベントを追加します。
     $close.addEventListener('click', () => {
-        // モーダルウィンドウを閉じます。
-        const $modal = document.getElementById('modal-window');
-        $modal.classList.remove('is-active');  // is-activeクラスを削除
+        const $modal = document.getElementById('kakunin');
+        $modal.classList.remove('is-active');
     });
-    let ido = document.getElementById('ido');
-    let keido = document.getElementById('keido');
-    let map = document.getElementById('map');
+    //緯度・経度表示
     navigator.geolocation.getCurrentPosition((position) => {
         let coords = position.coords;
-        ido.textContent = coords.latitude;
-        keido.textContent = coords.longitude;
-        map.setAttribute('href', 'https://www.google.co.jp/maps/@' + coords.latitude + ',' + coords.longitude + ',19z');
-        var url = location.protocol + '//' + location.host + '/main.html' + '?ido=' + coords.latitude + '&keido=' + coords.longitude;
-        document.getElementById('link').value = url;
-        document.getElementById('display').style.display = 'block';
+        document.getElementById('ido').innerHTML = Math.round(coords.latitude * 1000) / 1000;
+        keido = document.getElementById('keido').innerHTML = Math.round(coords.longitude * 1000) / 1000;
+        //GoogleMapに設定
+        map.setAttribute("href", "https://www.google.co.jp/maps/@" + coords.latitude + "," + coords.longitude + ",19z");
+        var url = location.protocol + "//" + location.host + "/Matiawa/main.html" + "?ido=" + coords.latitude + "&keido=" + coords.longitude;
+        //リンクをセット
+        document.getElementById("link").value = url;
+        //非表示
+        document.getElementById("display").style.display = "block";
 
     });
-    function copyToClipboard() {
-        var copyTarget = document.getElementById('link');
-        copyTarget.select();
-        document.execCommand('Copy');
+    //クリップボードにコピーする処理
+    function copy() {
+        var copy_link = document.getElementById("link");
+        copy_link.select();
+        document.execCommand("Copy");
     }
 </script>
 <style>
@@ -135,6 +156,7 @@
         background-color: rgb(255, 230, 162);
         padding-left: 4pt;
         padding-right: 4pt;
+        margin-top: -1pt;
     }
 
     .box button {
