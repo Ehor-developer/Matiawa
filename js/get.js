@@ -27,7 +27,6 @@ function customIcon(latLng, size, type) {
     var customIcon = L.divIcon({
         html: `<img class="pin" src="icon/icon.png" style="width: 40pt;">`,
         className: type,
-        iconSize: [size,size],
     });
     var marker = L.marker(latLng, {icon: customIcon});
     return marker;
