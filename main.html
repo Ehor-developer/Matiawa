@@ -1,137 +1,123 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <!--HTML初期設定-->
-    <meta charset="UTF-8">
-    <!--ViewPort設定-->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--ページタイトル設定-->
-    <title>まちあわ!!| 相手の位置情報</title>
-    <!--SEO対策・OGP設定-->
-    <meta name="description" content="自分の居場所をリンクで共有できるサイト。Javascriptのみで実行されているため、
+<!--HTML初期設定-->
+<meta charset="UTF-8">
+<!--ViewPort設定-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--ページタイトル設定-->
+<title>まちあわ!!| 相手の位置情報</title>
+<!--SEO対策・OGP設定-->
+<meta name="description" content="自分の居場所をリンクで共有できるサイト。Javascriptのみで実行されているため、
     こちら側からは情報を見ることはできません。必要なときだけ、友達に送れば住所がばれることがありません。" />
-    <meta name="og:image" content="https://ehor-developer.github.io/Matiawa/img/basyo.png">
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="まちあわ!!～自分の居場所をリンクで共有できるサイト～" />
-    <meta property="og:site_name" content="Ehor.work｜便利なアプリ" />
-    <meta property="og:description" content="自分の居場所をリンクで共有できるアプリ。
+<meta name="og:image" content="https://ehor-developer.github.io/Matiawa/img/basyo.png">
+<meta property="og:type" content="website" />
+<meta property="og:title" content="まちあわ!!～自分の居場所をリンクで共有できるサイト～" />
+<meta property="og:site_name" content="Ehor.work｜便利なアプリ" />
+<meta property="og:description" content="自分の居場所をリンクで共有できるアプリ。
     待ち合わせのときに便利なアプリ。最近は、様々な位置情報アプリがありまずが、
     常に位置情報を共有するわけではなく、必要なときにだけ共有することができます。
     また、データをサーバーに保存しないで、リンクに情報をつけることにより、安心してご利用できます。
     位置を知らせたい相手に、生成されたリンクを送るだけ。とっても簡単な使い方になっています!!" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-        integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
-    <meta name="robots" content="noarchive">
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="https://ehor-developer.github.io/Matiawa/img/basyo.png" />
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="600">
-    <!--CSSフレームワーク読み込み-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-</head>
-
-<body>
-
-    <section class="hero is-danger">
-        <div class="hero-body">
-            <p class="title">
-                まちあわ!!<br>【探す】
-            </p>
-            <p class="subtitle">
-                自分の居場所をリンクで共有できるサイト。
-            </p>
-        </div>
-    </section>
-    <div class="notification">
-        万が一、このアプリを使用して、<b>弊害が起きた場合、開発者は一切責任を取りません。ご了承下さい。</b>
-    </div>
-    <center>
-        <p class="title is-1">相手の場所は？</p>
-        <p class="title is-4">位置情報はこちらです!</p>
-        <p class="title is-6">四捨五入して、緯度/経度を表示しています</p>
-   
-    <div class="box">
-        <nav class="level is-mobile">
-            <div class="level-item has-text-centered">
-                <div>
-                    <p class="heading">緯度</p>
-                    <p class="title" id="ido">取得中....</p>
-                </div>
-            </div>
-            <div class="level-item has-text-centered">
-                <div>
-                    <p class="heading">経度</p>
-                    <p class="title" id="keido">取得中...</p>
-                </div>
-            </div>
-        </nav>
-    </div>
-    <div class="box">
-        <p class="title is-6">Googleマップで表示すると、<br>おおよその位置がズームされて表示されます。</p>
-        <div id="maps" style="height: 60vh; width: 80%; margin: 1em;"></div>
-        <button class='button'><a id='map' href='' target='_blank'>GoogleMapで確認する!!</a></button>
-        <a href='index.html'><button class='button is-primary'>リンクを作ってみる!!</button></a>
-    </div>
-   </center>
-</body>
-
-</html>
-
-<script>
-    //パラメータを取得する処理
-    function parm(name, url) {
-        if (!url) url = window.location.href;
-        name = name.replace(/[\[\]]/g, "\\$&");
-        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-            results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
-    }
-    //四捨五入して、緯度と経度を表示
-    document.getElementById("ido").innerHTML = Math.round(parm('ido') * 1000) / 1000;
-    document.getElementById("keido").innerHTML = Math.round(parm('keido') * 1000) / 1000;
-    document.getElementById("map").setAttribute("href", "https://www.google.co.jp/maps/@" + parm('ido') + "," + parm('keido') + ",19z");
-    //地図でピン表示
-    var map = L.map('maps').setView([parm('ido'), parm('keido')], 17);
-    L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, '
-    }).addTo(map);
-
-    var popup = L.popup();
-    L.marker([parm('ido'), parm('keido')]).addTo(map).on('click', function (e) {
-        popup
-            .setLatLng(e.latlng)
-            .setContent("相手の位置です。")
-            .openOn(map);
-    });
-</script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+<meta name="robots" content="noarchive">
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://ehor-developer.github.io/Matiawa/img/basyo.png" />
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="600">
+<!--CSSフレームワーク読み込み-->
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="headers"></div>
+<div id="maps" style="height: 100%; height: 100%;"></div>
+<div id="button">
+    <a href="link.html">🔗</a>
+</div>
+<script src="js/get.js"></script>
+<script src="js/main.js"></script>
+<div class="footers"></div>
 <style>
-    #display {
-        display: none;
+    .pin {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        width: 7vh;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+        animation-duration: 1.5s;
+        animation-name: anm;
     }
 
-    .center {
-        text-align: center;
-        margin: 0 auto;
+    @keyframes anm {
+        0% {
+            transform: translate(0, 0px);
+            transform: scale(1.1, 1);
+        }
+
+        50% {
+            transform: translate(1px, 0px);
+            transform: scale(1, 1);
+        }
+
+        100% {
+            transform: translate(0, 3px);
+            transform: scale(1, 1.1);
+        }
     }
 
-    html {
-        padding: 10pt;
+    #button {
+        width: 7vh;
+        height: 7vh;
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        background: #ffffff;
+        box-shadow: 3px 0px 92px -5px #777777;
+        border-radius: 28px;
+        margin: 2em;
+        z-index: 99;
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        font-size: 20pt;
     }
 
-    b {
-        color: rgb(218, 52, 52);
-        background-color: rgb(255, 230, 162);
-        padding-left: 4pt;
-        padding-right: 4pt;
+    .footers {
+        width: 30vh;
+        filter: blur(40px);
+        background-color: #525252;
+        width: 210vh;
+        height: 10vh;
+        opacity: 0.6;
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        z-index: 9;
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
     }
 
-    .box button {
-        margin: 5pt;
+    .headers {
+        width: 30vh;
+        filter: blur(40px);
+        background-color: #3ac093;
+        width: 210vh;
+        height: 10vh;
+        opacity: 0.6;
+        position: fixed;
+        right: 0;
+        top: 0;
+        z-index: 9;
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
     }
 </style>
