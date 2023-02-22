@@ -13,8 +13,8 @@ function parm(name, url) {
 //document.getElementById("keido").innerHTML = Math.round(parm('keido') * 1000) / 1000;
 //document.getElementById("map").setAttribute("href", "https://www.google.co.jp/maps/@" + parm('ido') + "," + parm('keido') + ",19z");
 
-const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '©Google</a>'
 });
 
 var map = L.map('maps', {
@@ -22,13 +22,16 @@ var map = L.map('maps', {
     zoom: 8,
     layers: [osm]
 })
-
 function customIcon(latLng, size, type) {
     var customIcon = L.divIcon({
         html: `<img class="pin" src="icon/icon.png" style="width: 40pt;">`,
         className: type,
+        iconSize: [50, 67], // size of the icon
+        shadowSize: [50, 64], // size of the shadow
+        iconAnchor: [20, 60], // point of the icon which will correspond to marker's location
+        popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchorrelative to the iconAnchor
     });
-    var marker = L.marker(latLng, {icon: customIcon});
+    var marker = L.marker(latLng, { icon: customIcon });
     return marker;
 }
 
